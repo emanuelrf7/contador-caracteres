@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversor de Temperatura</title>
+    <title>Contador de Caracteres</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,18 +27,17 @@
         function contar() {
             let captura = document.querySelector('textarea#itexto')
             let texto = captura.value
+            if (!texto) {
+                alert('Por favor, insira um texto!')
+                return
+            }
             let regex = /\s+/g // \s+ -> Esta parte da expressão regular corresponde a um ou mais espaços em branco. || g -> A flag g indica que a expressão regular deve ser aplicada a todas as ocorrências de espaços em branco na string.
             let novoTexto = texto.replace(regex, '')
             let novoElemento = document.createElement('p')
             function contarEspacos(str) {
                 let regex = /\s+/g
                 let capturarEspacos = str.match(regex)
-                if (capturarEspacos == null) {
-                    let elemento = document.querySelector('div#resultado')
-                    novoElemento.innerText = 'Digite um texto para fazer a contagem!'
-                    elemento.appendChild(novoElemento)
-                }
-                return capturarEspacos.length 
+                return capturarEspacos ? capturarEspacos.length : 0;
             }
             novoElemento.innerText = `O texto/frase que você inseriu possui ${novoTexto.length} caracteres e ${contarEspacos(texto.trim())} espaços!`
             
