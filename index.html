@@ -11,11 +11,9 @@
         <section class="main-content">
             <div class="content-1">
                 <h1>Contador de Caracteres</h1>
-                <label for="itexto">Digite a frase/texto:</label>
+                <label for="itexto">Digite o texto:</label>
                 <textarea name="texto" id="itexto" wrap="hard" placeholder="Insira aqui seu texto"></textarea>
-                <input type="button" value="Contar" onclick="contar()">
-                <input type="button" value="Limpar" onclick="limpar()">
-                <div id="resultado"></div>
+                <p id="resultado"><span id="caracteres"></span><span id="espacos"></span></p>
             </div>
         </section>
     </main>
@@ -24,13 +22,9 @@
         <p>® DESENVOLVIDO POR <strong><a href="https://emanuelrf7.github.io/portfolio/" rel="external" target="_blank">EMANUEL ROSA FRANCO</a></p>
     </footer>
     <script>
-        function contar() {
-            let captura = document.querySelector('textarea#itexto')
+        let captura = document.querySelector('textarea#itexto')
+        captura.addEventListener('input', function() {
             let texto = captura.value
-            if (!texto) {
-                alert('Por favor, insira um texto!')
-                return
-            }
             let regex = /\s+/g // \s+ -> Esta parte da expressão regular corresponde a um ou mais espaços em branco. || g -> A flag g indica que a expressão regular deve ser aplicada a todas as ocorrências de espaços em branco na string.
             let novoTexto = texto.replace(regex, '')
             let novoElemento = document.createElement('p')
@@ -39,16 +33,11 @@
                 let capturarEspacos = str.match(regex)
                 return capturarEspacos ? capturarEspacos.length : 0;
             }
-            novoElemento.innerText = `O texto/frase que você inseriu possui ${novoTexto.length} caracteres e ${contarEspacos(texto.trim())} espaços!`
-            
-            let elemento = document.querySelector('div#resultado')
-            elemento.appendChild(novoElemento)
-        }
-
-        function limpar() {
-            document.getElementById('itexto').value = ''
-            document.getElementById('resultado').innerHTML = ''            
-        }
+            let resultado = document.querySelector('p#resultado')
+            let caracteres = document.querySelector('span#caracteres')
+            let espacos = document.querySelector('span#espacos')
+            resultado.textContent = `O texto que você digitou tem ${novoTexto.length} caracteres e ${contarEspacos(texto)} espaços!`
+        })
     </script>
 </body>
 </html>
